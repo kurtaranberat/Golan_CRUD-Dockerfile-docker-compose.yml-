@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    environment:
+      POSTGRES_PASSWORD: "Password!"  # Değişiklik burada
+      POSTGRES_DB: "User"             # Değişiklik burada
+    ports:
+      - "5434:5432"
+
+  go-app:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "Password!"  # Değişiklik burada
+      POSTGRES_DB: "User"             # Değişiklik burada
